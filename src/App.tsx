@@ -17,7 +17,8 @@ import CancellationPolicy from './components/CancellationPolicy';
 import PromotionsTerms from './components/PromotionsTerms';
 import SecurityPolicy from './components/SecurityPolicy';
 import ContactPage from './components/ContactPage';
-import { ArrowDown, Globe, Smartphone, MessageSquare, CheckCircle2, ArrowRight } from 'lucide-react';
+import BlogPostPage from './components/BlogPostPage';
+import { ArrowDown, Globe, Smartphone, MessageSquare, CheckCircle2, ArrowRight, CalendarDays } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, useScroll, useTransform } from 'motion/react';
 
@@ -44,6 +45,33 @@ function HomePage() {
     { id: 2, title: t('projects.2.title'), category: t('projects.2.category'), image: 'https://picsum.photos/seed/sarab2/800/600', description: t('projects.2.desc') },
     { id: 3, title: t('projects.3.title'), category: t('projects.3.category'), image: 'https://picsum.photos/seed/sarab3/800/600', description: t('projects.3.desc') },
     { id: 4, title: t('projects.4.title'), category: t('projects.4.category'), image: 'https://picsum.photos/seed/sarab4/800/600', description: t('projects.4.desc') }
+  ];
+
+  const blogPosts = [
+    {
+      id: 1,
+      slug: '1',
+      category: t('blog.posts.1.category'),
+      date: t('blog.posts.1.date'),
+      title: t('blog.posts.1.title'),
+      excerpt: t('blog.posts.1.excerpt'),
+    },
+    {
+      id: 2,
+      slug: '2',
+      category: t('blog.posts.2.category'),
+      date: t('blog.posts.2.date'),
+      title: t('blog.posts.2.title'),
+      excerpt: t('blog.posts.2.excerpt'),
+    },
+    {
+      id: 3,
+      slug: '3',
+      category: t('blog.posts.3.category'),
+      date: t('blog.posts.3.date'),
+      title: t('blog.posts.3.title'),
+      excerpt: t('blog.posts.3.excerpt'),
+    }
   ];
 
   return (
@@ -240,6 +268,52 @@ function HomePage() {
         </div>
       </section>
 
+      {/* Middle Section 6: Blog */}
+      <section id="blog" className="subtle-section py-24 relative z-20 border-y backdrop-blur-sm">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between mb-16">
+            <div className="space-y-4 max-w-2xl">
+              <h3 className="text-cyan-400 font-semibold tracking-wider uppercase text-sm">{t('blog.subtitle')}</h3>
+              <h2 className="text-4xl md:text-5xl font-bold">{t('blog.title')}</h2>
+              <p className="muted-text text-lg leading-relaxed">{t('blog.description')}</p>
+            </div>
+            <Link
+              to="/contact"
+              className="project-meta inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider hover:text-cyan-400 transition-colors"
+            >
+              <span>{t('blog.cta')}</span>
+              <ArrowRight size={16} className={i18n.language === 'ar' ? 'rotate-180' : ''} />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {blogPosts.map((post) => (
+              <article
+                key={post.id}
+                className="card-surface h-full border rounded-2xl p-8 backdrop-blur-md transition-colors hover:border-cyan-500/30"
+              >
+                <div className="flex items-center justify-between gap-4 mb-6">
+                  <span className="text-cyan-400 text-sm font-semibold uppercase tracking-wider">{post.category}</span>
+                  <span className="muted-text inline-flex items-center gap-2 text-sm">
+                    <CalendarDays size={16} className="text-cyan-400" />
+                    {post.date}
+                  </span>
+                </div>
+                <h3 className="text-2xl font-bold mb-4">{post.title}</h3>
+                <p className="muted-text leading-relaxed mb-8">{post.excerpt}</p>
+                <Link
+                  to={`/blog/${post.slug}`}
+                  className="project-meta inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-wider hover:text-cyan-400 transition-colors"
+                >
+                  <span>{t('blog.read_more')}</span>
+                  <ArrowRight size={16} className={i18n.language === 'ar' ? 'rotate-180' : ''} />
+                </Link>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Final Section */}
       <section id="contact" className="h-screen flex flex-col items-center justify-center pb-32 relative z-20">
         <div className="glass-panel text-center space-y-8 backdrop-blur-md p-12 rounded-3xl border">
@@ -275,6 +349,7 @@ export default function App() {
       <Route path="/promotions" element={<PromotionsTerms />} />
       <Route path="/security" element={<SecurityPolicy />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/blog/:postId" element={<BlogPostPage />} />
     </Routes>
   );
 }
