@@ -21,6 +21,7 @@ import BlogPostPage from './components/BlogPostPage';
 import { ArrowDown, Globe, Smartphone, MessageSquare, CheckCircle2, ArrowRight, CalendarDays } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { motion, useScroll, useTransform } from 'motion/react';
+import ChatbotWidget from './chatbot/components/ChatbotWidget';
 
 function HomePage() {
   const { t, i18n } = useTranslation();
@@ -340,16 +341,19 @@ function HomePage() {
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/terms" element={<TermsAndConditions />} />
-      <Route path="/privacy" element={<PrivacyPolicy />} />
-      <Route path="/refund" element={<RefundPolicy />} />
-      <Route path="/cancellation" element={<CancellationPolicy />} />
-      <Route path="/promotions" element={<PromotionsTerms />} />
-      <Route path="/security" element={<SecurityPolicy />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/blog/:postId" element={<BlogPostPage />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/refund" element={<RefundPolicy />} />
+        <Route path="/cancellation" element={<CancellationPolicy />} />
+        <Route path="/promotions" element={<PromotionsTerms />} />
+        <Route path="/security" element={<SecurityPolicy />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/blog/:postId" element={<BlogPostPage />} />
+      </Routes>
+      <ChatbotWidget />
+    </>
   );
 }
